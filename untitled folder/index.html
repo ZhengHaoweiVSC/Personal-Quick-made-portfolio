@@ -7,8 +7,6 @@
 	</head>
 <body>
 	<h1>Zheng Haowei's portfolio</h1>
-
-    <main id = "portofolio">
     <section>
 		<h3>Inclusive rating review website</h3>
 		<p>An website with self-made database alongside Gemini API AI insight tool on summarizing reviews
@@ -55,23 +53,5 @@
             flight path for given flight on Durham Hackathon.
         </p>
 	</section>
-    </main>
-
-    <script>
-        const main = document.getElementById('portofolio');
-        const cards = Array.from(main.querySelectorAll('section'));
-
-        for ( let i = 0; i < cards.length; i += 2) {
-            const row = document.createElement('div');
-            row.classList = 'row';
-            main.appendChild(row);
-
-            cards.slice(i, i + 2).forEach(card => {
-                const len = card.textContent.trim().length;
-                card.style.flex = `${len} 1 0`;
-                row.appendChild(card);
-            });
-        }
-    </script>
 </body>
 </html>
