@@ -6,6 +6,9 @@
 		<title>Zheng Haowei's portfolio</title>
 	</head>
 <body>
+    <div class="coffee">
+        <img src="coffee.png" alt="">
+    </div>
 	<h1>Zheng Haowei's portfolio</h1>
 
     <main id = "portofolio">
@@ -57,6 +60,8 @@
 	</section>
     </main>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
     <script>
         const main = document.getElementById('portofolio');
         const cards = Array.from(main.querySelectorAll('section'));
@@ -72,6 +77,40 @@
                 row.appendChild(card);
             });
         }
+
+        const coffee = document.querySelector('.coffee');
+        const img = coffee.querySelector('img');
+        gsap.set(coffee, { xPercent: -50, yPercent: -50 });
+
+        const mouse = { x: 0, y: 0 };
+        const cup = { x: 0, y: 0, s: 0.2 };
+
+        const MIN = 0.16, MAX = 0.6;  
+        const FAR = 200;              
+        const POP = 1.3;             
+        const LAG = 0.05;         
+
+        addEventListener('pointermove', e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        gsap.ticker.add(() => {
+            cup.x += (mouse.x - cup.x) * LAG;
+            cup.y += (mouse.y - cup.y) * LAG;
+
+            const t = Math.min(1, Math.hypot(mouse.x - cup.x, mouse.y - cup.y) / FAR);
+            cup.s += (MAX + (MIN - MAX) * t - cup.s) * 0.1;
+
+            gsap.set(coffee, { x: cup.x, y: cup.y, scale: cup.s });
+        });
+
+        addEventListener('pointerdown', e => {
+        const onCup = Math.hypot(e.clientX - cup.x, e.clientY - cup.y) < Math.max(40, 75 * cup.s);
+        if (onCup) gsap.to(img, { scale: POP, duration: 0.8, ease: 'elastic.out(1, 0.3)', overwrite: 'auto' });
+        });
+
+        addEventListener('pointerup', () => gsap.to(img, { scale: 0.7, duration: 0.3, overwrite: 'auto' }));
     </script>
 </body>
 </html>

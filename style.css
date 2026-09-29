@@ -138,3 +138,22 @@ main {
         width: 92%;
     }
 }
+
+.coffee {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 150px;
+    height: 150px;
+    z-index: 9999;
+}
+
+.coffee img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    margin: 0;
+    border: none;
+    object-fit: contain;
+}
